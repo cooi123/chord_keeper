@@ -8,7 +8,8 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-import { ChordProEditor } from "@/components/ChordProjectEditor"
+import dynamic from "next/dynamic";
+const ChordProEditor = dynamic(() => import("@/components/ChordProjectEditor"), { ssr: false });
 import { useSongsStore } from "@/stores/songsStore"
 import { CreateSong, Song } from "@/types/song"
 import { validateCreateSong } from "@/lib/validation"

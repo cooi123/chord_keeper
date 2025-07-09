@@ -14,6 +14,7 @@ import { useSongsStore } from "@/stores/songsStore"
 import { CreateSong, Song } from "@/types/song"
 import { validateSong } from "@/lib/validation"
 import { useRouter } from "next/navigation"
+import { SAMPLE_CHORDS } from "@/const/shared"
 
 const keys = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 const timeSignatures = ["4/4", "3/4", "2/4", "6/8", "12/8"]
@@ -28,7 +29,7 @@ export default function EditorPage() {
     key: "C",
     tempo: 120,
     time_signature: "4/4",
-    chords: "",
+    chords: SAMPLE_CHORDS,
   })
   const [isPanelCollasped, setisPanelCollasped] = useState(false)
   const [validationError, setValidationError] = useState<string>("")
@@ -55,7 +56,7 @@ export default function EditorPage() {
         key: "C",
         tempo: 120,
         time_signature: "4/4",
-        chords: "",
+        chords: SAMPLE_CHORDS,
       })
       //redirect to home page
       router.push("/")

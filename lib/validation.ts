@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { SongSchema, CreateSongSchema, UpdateSongSchema } from '@/types/song'
+import {  CreateSongSchema, UpdateSongSchema } from '@/types/song'
 
 // Validation result type
 export interface ValidationResult<T> {
@@ -10,9 +10,9 @@ export interface ValidationResult<T> {
 }
 
 // Validate a song object
-export const validateSong = (song: unknown): ValidationResult<z.infer<typeof SongSchema>> => {
+export const validateSong = (song: unknown): ValidationResult<z.infer<typeof CreateSongSchema>> => {
   try {
-    const validatedSong = SongSchema.parse(song)
+    const validatedSong = CreateSongSchema.parse(song)
     return { success: true, data: validatedSong }
   } catch (error) {
     console.log("error", error)
@@ -28,59 +28,6 @@ export const validateSong = (song: unknown): ValidationResult<z.infer<typeof Son
   }
 }
 
-// Validate song data for creation
-export const validateCreateSong = (song: unknown): ValidationResult<z.infer<typeof CreateSongSchema>> => {
-  try {
-    const validatedSong = CreateSongSchema.parse(song)
-    return { success: true, data: validatedSong }
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return { 
-        success: false, 
-        error: error.errors.map(e => e.message).join(', '),
-        errors: error
-      }
-    }
-    return { success: false, error: 'Invalid song data for creation' }
-  }
-}
-
-// Validate song data for updates
-export const validateUpdateSong = (song: unknown): ValidationResult<z.infer<typeof UpdateSongSchema>> => {
-  try {
-    const validatedSong = UpdateSongSchema.parse(song)
-    return { success: true, data: validatedSong }
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return { 
-        success: false, 
-        error: error.errors.map(e => e.message).join(', '),
-        errors: error
-      }
-    }
-    return { success: false, error: 'Invalid song data for update' }
-  }
-}
-
-// Validate multiple songs
-export const validateSongs = (songs: unknown[]): {
-  valid: z.infer<typeof SongSchema>[]
-  invalid: { index: number; error: string }[]
-} => {
-  const valid: z.infer<typeof SongSchema>[] = []
-  const invalid: { index: number; error: string }[] = []
-
-  songs.forEach((song, index) => {
-    const validation = validateSong(song)
-    if (validation.success && validation.data) {
-      valid.push(validation.data)
-    } else if (validation.error) {
-      invalid.push({ index, error: validation.error })
-    }
-  })
-
-  return { valid, invalid }
-}
 
 // Custom validation helpers
 export const validateKey = (key: string): boolean => {

@@ -9,11 +9,12 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { useSongsStore } from "@/stores/songsStore"
 import { useRouter } from "next/navigation"
-
+import { Trash2 } from "lucide-react"
+import { toast } from "sonner"
 
 
 export default function HomePage() {
-  const { songs, loading, fetchSongs } = useSongsStore()
+  const { songs, loading, fetchSongs, deleteSong } = useSongsStore()
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResults, setSearchResults] = useState(songs)
   const router = useRouter()
@@ -87,6 +88,12 @@ export default function HomePage() {
                         <Link href={`/editor/${song.id}`}>
                           <Button size="sm">Edit</Button>
                         </Link>
+                        <Button variant="destructive" size="sm" onClick={() => {
+                          deleteSong(song.id)
+                          toast.success("Song deleted")
+                        }}>
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </div>
                     </div>
                   </CardContent>

@@ -12,7 +12,7 @@ import dynamic from "next/dynamic";
 const ChordProEditor = dynamic(() => import("@/components/ChordProjectEditor"), { ssr: false });
 import { useSongsStore } from "@/stores/songsStore"
 import { CreateSong, Song } from "@/types/song"
-import { validateCreateSong } from "@/lib/validation"
+import { validateSong } from "@/lib/validation"
 import { useRouter } from "next/navigation"
 
 const keys = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
@@ -39,7 +39,7 @@ export default function EditorPage() {
     setValidationError("")
 
     // Validate the song data
-    const validation = validateCreateSong(songData)
+    const validation = validateSong(songData)
 
     if (!validation.success) {
       setValidationError(validation.error || "Validation failed")

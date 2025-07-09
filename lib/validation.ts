@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import {  CreateSongSchema, UpdateSongSchema } from '@/types/song'
+import {  CreateSongSchema } from '@/types/song'
 
 // Validation result type
 export interface ValidationResult<T> {
@@ -48,39 +48,3 @@ export const validateTimeSignature = (timeSignature: string): boolean => {
   const timeSignaturePattern = /^[1-9]\/[1-9]$/
   return timeSignaturePattern.test(timeSignature)
 }
-
-// Enhanced validation with custom rules
-export const validateSongWithCustomRules = (song: unknown): ValidationResult<z.infer<typeof SongSchema>> => {
-  const basicValidation = validateSong(song)
-  
-  if (!basicValidation.success || !basicValidation.data) {
-    return basicValidation
-  }
-
-  const data = basicValidation.data
-  const errors: string[] = []
-
-  // Custom key validation
-  if (!validateKey(data.key)) {
-    errors.push(`Invalid key: ${data.key}. Please use a valid musical key.`)
-  }
-
-  // Custom tempo validation
-  if (!validateTempo(data.tempo)) {
-    errors.push(`Invalid tempo: ${data.tempo}. Tempo must be between 1 and 300 BPM.`)
-  }
-
-  // Custom time signature validation
-  if (!validateTimeSignature(data.time_signature)) {
-    errors.push(`Invalid time signature: ${data.time_signature}. Please use format like "4/4", "3/4", etc.`)
-  }
-
-  if (errors.length > 0) {
-    return {
-      success: false,
-      error: errors.join(', ')
-    }
-  }
-
-  return basicValidation
-} 

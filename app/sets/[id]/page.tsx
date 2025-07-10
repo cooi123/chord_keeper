@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ArrowLeft, Music, Plus, Edit } from "lucide-react"
+import { ArrowLeft, Music, Plus, Edit, PlayCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -256,6 +256,12 @@ export default function SetDetailPage() {
                 <CardTitle>Quick Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
+                <Link href={`/sets/${setId}/performance`}>
+                  <Button className="w-full bg-transparent" variant="outline">
+                    <PlayCircle className="h-4 w-4 mr-2" />
+                    Start Performance
+                  </Button>
+                </Link>
                 <Dialog open={isAddSongDialogOpen} onOpenChange={setIsAddSongDialogOpen}>
                   <DialogTrigger asChild>
                     <Button className="w-full bg-transparent" variant="outline">

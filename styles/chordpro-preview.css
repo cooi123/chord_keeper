@@ -123,3 +123,47 @@ body {
   color: #6366f1; /* Indigo for chords */
   font-size: 0.95em;
 }
+
+/* Font size control classes */
+.font-size-xs { font-size: 0.75rem; }
+.font-size-sm { font-size: 0.875rem; }
+.font-size-base { font-size: 1rem; }
+.font-size-lg { font-size: 1.125rem; }
+.font-size-xl { font-size: 1.25rem; }
+.font-size-2xl { font-size: 1.5rem; }
+.font-size-3xl { font-size: 1.875rem; }
+.font-size-4xl { font-size: 2.25rem; }
+
+/* Font size button styles */
+.font-size-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.font-size-btn {
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  background: white;
+  color: #374151;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.font-size-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.font-size-btn:active {
+  background: #e5e7eb;
+}
+
+.font-size-display {
+  font-size: 0.875rem;
+  color: #6b7280;
+  min-width: 3rem;
+  text-align: center;
+}
